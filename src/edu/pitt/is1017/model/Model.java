@@ -13,12 +13,13 @@ public class Model {
 		todoList= new Vector<ListItem>();
 	}
 	
-	public void addListItem(String text, int id){
-		todoList.addElement(new ListItem(text, id));
+	public void addListItem(String text, int id, Timestamp timeStamp){
+		todoList.addElement(new ListItem(text, id, timeStamp));
 	}
 	
 	public int addDatabaseItem(String text){
 		int dataID=-1;
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
@@ -50,6 +51,7 @@ public class Model {
 			System.out.println(insert);
 			PreparedStatement stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.executeUpdate();
+			
 			ResultSet rs = stmt.getGeneratedKeys();
 	           while(rs.next()){
 	            dataID = rs.getInt(1);
@@ -123,6 +125,13 @@ public class Model {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static java.sql.Timestamp getCurrentTimeStamp() {
+
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
+
 	}
 	
 	public Vector<ListItem> getList(){

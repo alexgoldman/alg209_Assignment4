@@ -7,7 +7,7 @@ public class ListItem {
 	private String description;
 	private int id;
 	private Timestamp timeStamp;
-	public ListItem(String description, int id){
+	public ListItem(String description, int id, Timestamp timeStamp){
 		this.id=id;
 		this.description=description;
 		this.timeStamp=timeStamp;
